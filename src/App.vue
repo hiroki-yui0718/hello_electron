@@ -1,17 +1,32 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <button class="btn btn-primary" @click="onclick">+1</button>
+    {{Num}}
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import path from 'path'
+import { remote } from 'electron'
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  data:function(){
+    return{
+      Num:0, 
+
+    }
+  },
+  methods:{
+  onclick:function(){
+    this.Num++
+    var Datastore = require('nedb');
+var db = new Datastore({
+  filename: path.join(remote.app.getPath('userData'), '/data.db')
+})
+db.loadDatabase(function (err) {
+  if(err!= null)
+    db.insert({post: "hogehoge", date: new Date()});
+});
+  }
   }
 }
 </script>
