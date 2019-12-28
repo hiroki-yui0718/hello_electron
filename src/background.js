@@ -5,8 +5,11 @@ import {
   createProtocol,
   installVueDevtools
 } from 'vue-cli-plugin-electron-builder/lib'
-const isDevelopment = process.env.NODE_ENV !== 'production'
+import Datastore from 'nedb'
+import path from 'path'
+import { remote } from 'electron'
 
+const isDevelopment = process.env.NODE_ENV !== 'production'
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
@@ -14,9 +17,16 @@ let win
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: { secure: true, standard: true } }])
 
+function database() {
+  let options = {
+    filename : path.join(remote.app.getPath('userData'), '/data.db'),
+    autoload : true
+}
+new Datastore(options);
+}
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({ width: 800, height: 600, webPreferences: {
+  win = new BrowserWindow({ width: 1000, height: 600, webPreferences: {
     nodeIntegration: true
   } })
 
@@ -48,6 +58,7 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (win === null) {
+    database()
     createWindow()
   }
 })
