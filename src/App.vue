@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="container">
-    <button class="mb-3 ml-2 btn btn-primary" @click="onclick">+1</button>
+    <button class="mb-3 mr-2 btn btn-primary" @click="onclick">+1</button>
     {{Num}}<br>
     <input type="text" v-model="memo.msg" class="form-control">
     <button class="mt-2 btn btn-primary" @click="onSubmit">送信</button><br>
@@ -10,7 +10,15 @@
     <input type="text" v-model="word" class="mt-3 form-control">
    <button class="mt-2 btn btn-primary" @click="onProgramSearch">検索</button>
    検索ワード:{{word}}<br>
-    {{json}}
+    <!-- <div v-for="(value,key,index) of jsons" :key="index" v-show="key=='data'">
+      <p>{{index}}{{value}}{{key}}</p>
+      <ul>
+    <li v-for="(value,index) of value" :key="index">{{index}}{{value.title}}</li>
+      </ul>
+      </div> -->
+      <ul class="mt-3">
+    <li v-for="(value,key) of searchResults.data" :key="key">{{value.title}}</li>
+      </ul>
       <br>
     </div>
   </div>
@@ -23,13 +31,16 @@ export default {
   data:function(){
     return{
       Num:0,
-      json:{'meta':'Hi!','data':[{'title':'水樹奈々'}]},
+      jsons:{
+        'meta':'Hi!',
+        'data':[{'title':'水樹奈々'}]
+        },
       memo:{
         msg:''
     },
     word:'',
     URL:'',
-    searchResult:[],
+    searchResults:[],
       result:[],
       flg:false,
     }
@@ -51,8 +62,8 @@ export default {
 })
     axios.get(this.URL, {headers : this.headers})
   .then(response => {
-this.searchResult = JSON.stringify(response.data)
-     console.log(JSON.stringify(response.data));
+this.searchResults = response.data
+     console.log(this.searchResults);
   })
   .catch(error => {
     console.error(error);
@@ -82,7 +93,6 @@ this.searchResult = JSON.stringify(response.data)
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
