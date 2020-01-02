@@ -16,8 +16,8 @@ export default new Vuex.Store({
             db.find({}, (error, docs) => {
             // 全ドキュメントが返る
             state.todo = docs
-            return state.todo
             })
+            return state.todo
         }
     },
     mutations:{
@@ -26,8 +26,8 @@ export default new Vuex.Store({
         }
     },
     actions:{
-        [INSERT_TODO]({},data){
-            db.insert(data)
+        [INSERT_TODO]({db},d){
+            db.insert(d)
         }
     }
 })

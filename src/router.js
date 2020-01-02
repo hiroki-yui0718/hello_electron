@@ -2,7 +2,7 @@ import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue' // added
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import TODO from '@/components/TODO'
+import Todo from '@/components/Todo'
 import radikoSearch from '@/components/radikoSearch'
 import Other from '@/components/Other'
 import 'bootstrap/dist/css/bootstrap.css' // added
@@ -26,7 +26,7 @@ export default new Router({
     },
     {
       path:'/todo',
-      component:TODO
+      component:Todo
     },
     {
       path:'/other',

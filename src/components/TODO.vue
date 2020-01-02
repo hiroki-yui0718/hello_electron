@@ -39,13 +39,11 @@ export default {
                   this[INSERT_TODO](this.todo)
             },
             onSearch:function(){
-                console.log('Heloo')
+            console.log('Heloo')
             this.flg = !this.flg 
   }
         },
-
   
     
-
 }
 </script>
