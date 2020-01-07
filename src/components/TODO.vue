@@ -21,7 +21,8 @@
 <script>
 import {mapGetters,mapActions} from 'vuex'
 import {INSERT_TODO} from '../mutation-types'
-import * as Datastore from "nedb";
+import {db} from '../Scripts/indexedDB'
+// import * as Datastore from "nedb";
 export default {
     data:function(){
         return{
@@ -40,10 +41,6 @@ export default {
                   this[INSERT_TODO](this.todo)
             },
             onSearch:function(){
-            console.log(this.todo)
-            let db = new Datastore({ filename: "/nedb.db", autoload: true });
-            db.insert({ hoge: "hoge", fuga: "fuga" }); // 適当なオブジェクトを保存
-            db.insert(this.todo);
             db.find({}, (err, document) => {
             console.log(document); // 保存したオブジェクトが取り出せる
             });
