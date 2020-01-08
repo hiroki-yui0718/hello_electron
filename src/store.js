@@ -7,7 +7,8 @@ import {db} from './Scripts/indexedDB'
 Vue.use(Vuex)
 export default new Vuex.Store({ 
     state:{
-        todo:[],   
+        todo:[], 
+        memo:[],  
     },
     getters:{
         allToDo(state){
@@ -21,8 +22,35 @@ export default new Vuex.Store({
                   }
                 })
                 return state.todo
-            }
-        },
+            },
+        allMemo(state){
+                fbDB.ref('memo').on('value', snapshot => {
+                    if (snapshot) {
+                        const rootList = snapshot.val();
+                        state.memo.length = 0
+                        Object.keys(rootList).forEach((val, key) => { // eslint-disable-line
+                          state.memo.push(rootList[val]);
+                        })
+                      }
+                    })
+                    return state.memo
+                
+                },
+                countMemo(state){
+                    fbDB.ref('memo').on('value', snapshot => {
+                        if (snapshot) {
+                            const rootList = snapshot.val();
+                            state.memo.length = 0
+                            Object.keys(rootList).forEach((val, key) => { // eslint-disable-line
+                              state.memo.push(rootList[val]);
+                            })
+                          }
+                        })
+                        return state.memo.length
+                    
+                    },
+                },
+                
     mutations:{
         [INSERT_TODO](state,payload){
             state.todo.push(payload)
@@ -35,7 +63,7 @@ export default new Vuex.Store({
                
         },
         [INSERT_MEMO]({},data){ // eslint-disable-line
-            fbDB.ref('memo').push(data)
+            fbDB.ref('memo').upadte(data)
             db.insert(data)
                
         },

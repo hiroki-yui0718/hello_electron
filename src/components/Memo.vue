@@ -1,32 +1,34 @@
 <template>
 <div id="app" class="h-100">
     <div class="row h-100">
-        <div class="col-md-3 border-right"></div>
+        <div class="col-md-3 border-right">
+                <div v-if="countMemo == 0">
+    <div class="border-bottom" style="height:75px;">新しいメモ</div>
+    </div>
+    <div v-else>
+    <div v-for="(value,index) of allMemo" :key="index">
+        <div class="border-bottom" style="text-align:center;height:75px;">
+            <router-link to="/article" :no="index">{{value}}</router-link>
+        </div>
+    </div>
+    </div>
+        </div>
 <div class="col-md-9">
-<textarea v-model="memo" style="width:100%;height:100%;border:solid 0px;"></textarea>
+<router-view></router-view>
 </div>
 </div>
-
 </div>
 </template>
 
 <script>
-    import {mapActions} from 'vuex'
-import {INSERT_MEMO} from '../mutation-types'
+import {mapGetters} from 'vuex'
 export default {
     data:function(){
         return{
-          memo:"",
+          memo:[],
         }
     },
-        methods:{
-            ...mapActions([INSERT_MEMO]),
-            onSubmit:function(){
-                  this[INSERT_MEMO](this.memo)
-            },
-        }
-  
-    
+    computed:mapGetters(['allMemo','countMemo']),
 }
 </script>
 

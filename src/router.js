@@ -8,6 +8,7 @@ import Other from '@/components/Other'
 import 'bootstrap/dist/css/bootstrap.css' // added
 import 'bootstrap-vue/dist/bootstrap-vue.css' // added
 import Memo from '@/components/Memo'
+import Article from '@/components/Article'
 
 Vue.use(Router)
 Vue.use(BootstrapVue) // added
@@ -36,6 +37,11 @@ export default new Router({
     {
       path:'/memo',
       component:Memo
+    },
+    {
+      props:true,
+      path:'/article',
+      component:Article
     }
   ]
 })
