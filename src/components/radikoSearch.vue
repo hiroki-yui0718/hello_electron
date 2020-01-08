@@ -1,5 +1,5 @@
 <template>
-<div id="app">
+<div class="container">
 <select class="mt-3 form-control" v-model="pref_id"><option value="" selected>都道府県</option><option value="JP1">北海道</option><option value="JP2">青森県</option>
 <option value="JP3">岩手県</option><option value="JP4">宮城県</option><option value="JP5">秋田県</option><option value="JP6">山形県</option>
 <option value="JP7">福島県</option><option value="JP8">茨城県</option><option value="JP9">栃木県</option><option value="JP10">群馬県</option>

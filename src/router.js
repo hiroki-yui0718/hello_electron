@@ -7,6 +7,7 @@ import radikoSearch from '@/components/radikoSearch'
 import Other from '@/components/Other'
 import 'bootstrap/dist/css/bootstrap.css' // added
 import 'bootstrap-vue/dist/bootstrap-vue.css' // added
+import Memo from '@/components/Memo'
 
 Vue.use(Router)
 Vue.use(BootstrapVue) // added
@@ -31,6 +32,10 @@ export default new Router({
     {
       path:'/other',
       component:Other
+    },
+    {
+      path:'/memo',
+      component:Memo
     }
   ]
 })

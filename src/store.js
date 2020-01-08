@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {fbDB} from './Scripts/firebase'
-import {INSERT_TODO} from './mutation-types'
+import {INSERT_TODO,INSERT_MEMO} from './mutation-types'
 import {db} from './Scripts/indexedDB'
 
 Vue.use(Vuex)
@@ -11,7 +11,7 @@ export default new Vuex.Store({
     },
     getters:{
         allToDo(state){
-            fbDB.ref('memo').on('value', snapshot => {
+            fbDB.ref('todo').on('value', snapshot => {
                 if (snapshot) {
                     const rootList = snapshot.val();
                     state.todo.length = 0
@@ -30,9 +30,15 @@ export default new Vuex.Store({
     },
     actions:{
         [INSERT_TODO]({},data){ // eslint-disable-line
+            fbDB.ref('todo').push(data)
+            db.insert(data)
+               
+        },
+        [INSERT_MEMO]({},data){ // eslint-disable-line
             fbDB.ref('memo').push(data)
             db.insert(data)
                
-        }
+        },
+
     }
 })

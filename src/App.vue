@@ -1,16 +1,17 @@
 <template>
   <div id="app">
     <div class="row">
-      <div class="col-md-12 mb-3">
+      <div class="col-md-12 ml-3">
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
   <el-menu-item index="1"><router-link to="/">Home</router-link></el-menu-item>
   <el-menu-item index="2"><router-link to="/todo">TODO</router-link></el-menu-item>
-  <el-menu-item index="3" disabled><router-link to="/search">番組検索</router-link></el-menu-item>
-  <el-menu-item index="4"><router-link to="/other">テスト</router-link></el-menu-item>
+  <el-menu-item index="4"><router-link to="/memo">メモ</router-link></el-menu-item>
+    <el-menu-item index="3"><router-link to="/search">番組検索</router-link></el-menu-item>
+  <el-menu-item index="5"><router-link to="/other">テスト</router-link></el-menu-item>
 </el-menu>
 </div></div>
 
-      <div class="row">
+      <div class="row" style="height:600px">
         <div class="col-md-1">
 <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
   <el-submenu index="1">
