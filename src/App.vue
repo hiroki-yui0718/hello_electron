@@ -55,6 +55,15 @@
 
 <script>
 export default{
+  head: {
+  title: {
+    inner: 'TODO',
+    // innerに入力したものがタイトルになりますが、separatorとcomplementを使用すると「タイトル | 捕捉」のようになります。
+    // トップページ以外でよく見ますね。不要な場合は省略可能です。
+    separator: ' ',
+    complement: ' '
+  }
+  },
   data:function(){
           return{
             isCollapse: true,

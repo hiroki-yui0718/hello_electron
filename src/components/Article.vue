@@ -6,30 +6,35 @@
 
 <script>
 import {mapActions} from 'vuex'
-import {INSERT_MEMO} from '../mutation-types'
+import {UPDATE_MEMO} from '../mutation-types'
 import {fbDB} from '../Scripts/firebase'
 export default {
-    props:['no'],
     data:function(){
         return{
-          memo:[],
+          list:[],
         }
     },
-        computed:{
-            article:function(){
+    computed:{
+        article:function(){
                 fbDB.ref('memo').on('value', snapshot => {
-                        const rootList = snapshot.val()
-                        this.memo.push(rootList[this.no]) // eslint-disable-line
-                        
+                    if (snapshot) {
+                        const rootList = snapshot.val();
+                        this.list.length = 0 // eslint-disable-line
+                        Object.keys(rootList).forEach((val, key) => { // eslint-disable-line
+                          this.list.push(rootList[val]); // eslint-disable-line
+                            console.log(this.list)
+                            console.log(this.$route.params.id)
+                        })
+                      }
                     })
-                                return this.memo
-                }, 
-
-            },
+                    return this.list[this.$route.params.id]
+                
+                },
+    },
         methods:{
-            ...mapActions([INSERT_MEMO]),
+            ...mapActions([UPDATE_MEMO]),
             onChange:function(){
-                  this[INSERT_MEMO](this.memo)
+                  this[UPDATE_MEMO](this.article)
             },
         }
   

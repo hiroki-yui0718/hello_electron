@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {fbDB} from './Scripts/firebase'
-import {INSERT_TODO,INSERT_MEMO} from './mutation-types'
+import {INSERT_TODO,INSERT_MEMO,UPDATE_MEMO} from './mutation-types'
 import {db} from './Scripts/indexedDB'
 
 Vue.use(Vuex)
@@ -63,8 +63,12 @@ export default new Vuex.Store({
                
         },
         [INSERT_MEMO]({},data){ // eslint-disable-line
-            fbDB.ref('memo').upadte(data)
+            fbDB.ref('memo').push(data)
             db.insert(data)
+               
+        },
+        [UPDATE_MEMO]({},data){ // eslint-disable-line
+            fbDB.ref('memo').upadte(data)
                
         },
 
