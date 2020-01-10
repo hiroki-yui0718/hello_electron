@@ -11,30 +11,31 @@ import {fbDB} from '../Scripts/firebase'
 export default {
     data:function(){
         return{
-          list:[],
+         list:[],
+         article:[],
+         data:[]
         }
     },
-    computed:{
-        article:function(){
+     mouted:function(){
                 fbDB.ref('memo').on('value', snapshot => {
                     if (snapshot) {
                         const rootList = snapshot.val();
-                        this.list.length = 0 // eslint-disable-line
+                        this.data.length = 0 // eslint-disable-line
                         Object.keys(rootList).forEach((val, key) => { // eslint-disable-line
-                          this.list.push(rootList[val]); // eslint-disable-line
-                            console.log(this.list)
+                          this.data.push(rootList[val])// eslint-disable-line
                             console.log(this.$route.params.id)
                         })
+                        this.list.push(this.data[this.$route.params.id]);
+                         console.log(this.list)
                       }
                     })
-                    return this.list[this.$route.params.id]
-                
                 },
-    },
+
         methods:{
             ...mapActions([UPDATE_MEMO]),
             onChange:function(){
-                  this[UPDATE_MEMO](this.article)
+              this.article = this.list
+                  this[UPDATE_MEMO](this.article,this.$route.params.id)
             },
         }
   

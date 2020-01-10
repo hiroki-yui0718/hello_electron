@@ -67,8 +67,15 @@ export default new Vuex.Store({
             db.insert(data)
                
         },
-        [UPDATE_MEMO]({},data){ // eslint-disable-line
-            fbDB.ref('memo').upadte(data)
+        [UPDATE_MEMO]({},data,index){ // eslint-disable-line
+            fbDB.ref("memo").on("value", function(snapshot) {
+                snapshot.forEach(function(children) {
+              //children.val().userIdとかで必要な値を取ればOK
+              if(children.val() == index){
+                console.log(children.key)
+              }
+                 });
+                });
                
         },
 
